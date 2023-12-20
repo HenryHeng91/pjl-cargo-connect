@@ -1,0 +1,1089 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="pjl-cargo-connect">
+        <createTable tableName="CLIENT_ACCOUNTS">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_CLIENT_ACCOUNTS"/>
+            </column>
+            <column name="ACCOUNT_NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACCOUNT_NUMBER" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACCOUNT_TYPE" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COMPANY_NAME" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COMPANY_ADDRESS" type="CLOB"/>
+            <column name="EMAIL" type="VARCHAR(500)"/>
+            <column name="PHONE" type="VARCHAR(25)"/>
+            <column name="MAP_LOCATION" type="VARCHAR(255)"/>
+            <column name="COMPANY_LOGO" type="VARCHAR(255)"/>
+            <column name="WEBSITE" type="VARCHAR(255)"/>
+            <column name="REMARK" type="VARCHAR(1000)"/>
+            <column name="STATUS" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REGISTER_DATE" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="timestamp with time zone"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="pjl-cargo-connect">
+        <createTable tableName="COMPANIES">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_COMPANIES"/>
+            </column>
+            <column name="CLIENT_ACCOUNT_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COMPANY_NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COMPANY_TYPE" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ADDRESS" type="VARCHAR(1000)"/>
+            <column name="EMAIL" type="VARCHAR(255)"/>
+            <column name="PHONE" type="VARCHAR(25)"/>
+            <column name="MAP_LOCATION" type="VARCHAR(255)"/>
+            <column name="LOCATION_PROVINCE" type="VARCHAR(255)"/>
+            <column name="LOCATION_COUNTRY" type="VARCHAR(255)"/>
+            <column name="LOGO" type="VARCHAR(500)"/>
+            <column name="WEBSITE" type="VARCHAR(255)"/>
+            <column name="REMARK" type="VARCHAR(1000)"/>
+            <column name="STATUS" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="timestamp with time zone"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="pjl-cargo-connect">
+        <createTable tableName="CONTAINERS">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_CONTAINERS"/>
+            </column>
+            <column name="SHIPMEN_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CONTAINER_NUMBER"
+                    remarks="sometimes the ctnr is created without knowing which container to pick up, they just know the size and qty of cntr to pick, so that's why cntr is blank at the creation"
+                    type="VARCHAR(255)"/>
+            <column name="CONTAINER_TYPE_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CONTAINER_SIZE_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DEPOT_ID" type="INT"/>
+            <column name="REQUEST_LOADING_TIME" type="timestamp with time zone"/>
+            <column name="PICKEDUP_TIME" type="timestamp with time zone"/>
+            <column name="LOADING_FINISH_TIME" type="timestamp with time zone"/>
+            <column name="PACKAGE_QTY" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NETWEIGHT" type="DOUBLE"/>
+            <column name="GROSSWEIGHT" type="DOUBLE"/>
+            <column name="VOLUME_WEIGHT" type="DOUBLE"/>
+            <column name="CHARGEABLE_WEIGHT" type="DOUBLE"/>
+            <column name="VOLUME" type="DOUBLE"/>
+            <column name="WEIGHT_UNIT_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VOLUME_UNIT_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CUSTOMS_INSPECTOR_NAME" type="VARCHAR(255)"/>
+            <column name="CUSTOMS_INSPECT_DATETIME" type="timestamp with time zone"/>
+            <column name="CUSTOMS_STATUS" type="INT"/>
+            <column name="CUSTOMS_SEAL_NUMBER" type="VARCHAR(255)"/>
+            <column name="SHIPPER_SEAL_NUMBER" type="VARCHAR(255)"/>
+            <column name="DESCRIPTION_OF_GOODS" type="VARCHAR(1000)"/>
+            <column name="SHIPPING_MARK" type="VARCHAR(255)"/>
+            <column name="BOOKED_PARTY_NAME" type="VARCHAR(255)"/>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="timestamp with time zone"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="pjl-cargo-connect">
+        <createTable tableName="CONTRACTS">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_CONTRACTS"/>
+            </column>
+            <column name="CONTRACT_NUMBER" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CONTRACT_TYPE" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DEPOSIT_AMOUNT_IN_USD" type="DECIMAL(19, 2)"/>
+            <column name="CREDIT_AMOUNT_IN_USD_COPY" type="DECIMAL(19, 2)"/>
+            <column name="VALID_FROM" type="timestamp with time zone"/>
+            <column name="VALID_TO" type="timestamp with time zone"/>
+            <column name="REMARK" type="VARCHAR(1000)"/>
+            <column name="STATUS" type="INT"/>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="timestamp with time zone"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="5" author="pjl-cargo-connect">
+        <createTable tableName="CONTRACT_CLIENT_ACCOUNT_LINKS">
+            <column name="CLIENT_ACCOUNT_ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_CONTRACT_CLIENT_ACCOUNT_LINKS"/>
+            </column>
+            <column name="CONTRACT_ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_CONTRACT_CLIENT_ACCOUNT_LINKS"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="6" author="pjl-cargo-connect">
+        <createTable tableName="FLEET">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_FLEET"/>
+            </column>
+            <column name="CARRIER_ID" type="INT"/>
+            <column name="FLEET_NUMBER" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FLEET_TYPE" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="timestamp with time zone"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="7" author="pjl-cargo-connect">
+        <createTable tableName="JOBS">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_JOBS"/>
+            </column>
+            <column name="COMPANY_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="JOB_NUMBER" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CLIENT_BOOKING_NUMBER" type="VARCHAR(255)"/>
+            <column name="BOOKING_RECEIVED_DATE" type="timestamp with time zone"/>
+            <column name="BOOKING_SENDER_NAME" type="VARCHAR(100)"/>
+            <column name="UUID" type="UUID"/>
+            <column name="STATUS" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="timestamp with time zone"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="8" author="pjl-cargo-connect">
+        <createTable tableName="MASTERDATA_CARGO_PORTS">
+            <column name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_MASTERDATA_CARGO_PORTS"/>
+            </column>
+            <column name="PORT_NAME" type="VARCHAR(255)"/>
+            <column name="PORT_CODE" type="VARCHAR(10)"/>
+            <column name="PORT_TYPE" type="INT"/>
+            <column name="IATA_CODE" type="VARCHAR(10)"/>
+            <column name="COUNTRY_ID" type="INT"/>
+            <column name="CITY" type="VARCHAR(255)"/>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="timestamp with time zone"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="9" author="pjl-cargo-connect">
+        <createTable tableName="MASTERDATA_CONTAINER_SIZE">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_MASTERDATA_CONTAINER_SIZE"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="timestamp with time zone"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="10" author="pjl-cargo-connect">
+        <createTable tableName="MASTERDATA_CONTAINER_TYPES">
+            <column name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_MASTERDATA_CONTAINER_TYPES"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="11" author="pjl-cargo-connect">
+        <createTable tableName="MASTERDATA_COUNTRIES">
+            <column name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_MASTERDATA_COUNTRIES"/>
+            </column>
+            <column name="COUNTRY_NAME" type="VARCHAR(255)"/>
+            <column name="COUNTRY_CODE_ISO2" type="VARCHAR(2)"/>
+            <column name="COUNTRY_CODE_ISO3" type="VARCHAR(3)"/>
+            <column name="OFFICIAL_LANGUAGE_CODE_ISO2" type="VARCHAR(3)"/>
+            <column name="PHONE_CODE" type="VARCHAR(10)"/>
+            <column name="CONTINENT" type="INT"/>
+            <column name="CURRENCY" type="VARCHAR(3)"/>
+            <column name="TIMEZONE" type="VARCHAR(100)"/>
+            <column name="UUID" type="UUID"/>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="timestamp with time zone"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="12" author="pjl-cargo-connect">
+        <createTable tableName="MASTERDATA_CURRENCIES">
+            <column name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_MASTERDATA_CURRENCIES"/>
+            </column>
+            <column name="CODE" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CURRENCY_FULL_NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="timestamp with time zone"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="13" author="pjl-cargo-connect">
+        <createTable tableName="MASTERDATA_MODE_OF_TRANSPORT">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_MASTERDATA_MODE_OF_TRANSPORT"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="timestamp with time zone"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="14" author="pjl-cargo-connect">
+        <createTable tableName="MASTERDATA_PRODUCT_CATEGORIES">
+            <column name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_MASTERDATA_PRODUCT_CATEGORIES"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="15" author="pjl-cargo-connect">
+        <createTable tableName="MASTERDATA_SUPPLIER_TYPES">
+            <column name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_MASTERDATA_SUPPLIER_TYPES"/>
+            </column>
+            <column name="SUPPLIER_TYPE_NAME" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="16" author="pjl-cargo-connect">
+        <createTable tableName="MASTERDATA_UNIT">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_MASTERDATA_UNIT"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ABBREVIATION" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CATEGORY" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="timestamp with time zone"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="17" author="pjl-cargo-connect">
+        <createTable tableName="PJL_PRODUCTS">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PJL_PRODUCTS"/>
+            </column>
+            <column name="PRODUCT_NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRODUCT_CODE" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRODUCTCATEGORY_ID" type="INT"/>
+            <column name="DESCRIPTION" type="VARCHAR(255)"/>
+            <column name="REMARK" type="VARCHAR(255)"/>
+            <column name="STATUS" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="timestamp with time zone"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="18" author="pjl-cargo-connect">
+        <createTable tableName="PRICE_QUOTES">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PRICE_QUOTES"/>
+            </column>
+            <column name="ACCOUNT_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PJL_PRODUCT_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRICE_AMOUNT" type="DECIMAL(19, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VAT_AMOUNT" type="DECIMAL(19, 2)"/>
+            <column name="VAT_PERCENTAGE" type="INT"/>
+            <column name="CREDIT_AMOUNT" type="DECIMAL(19, 2)"/>
+            <column name="CURRENCY_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="QUOTE_REF_NO" type="VARCHAR(255)"/>
+            <column name="REMARK" type="VARCHAR(255)"/>
+            <column name="STATUS" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VALID_FROM" type="timestamp with time zone"/>
+            <column name="VALID_TO" type="timestamp with time zone"/>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="timestamp with time zone"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="timestamp with time zone"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="19" author="pjl-cargo-connect">
+        <createTable tableName="SHIPMENTS">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SHIPMENTS"/>
+            </column>
+            <column name="JOB_ID" type="BIGINT"/>
+            <column name="SHIPPER_ID" type="BIGINT"/>
+            <column name="CONSIGNEE_ID" type="BIGINT"/>
+            <column name="ORIGIN_COUNTRY_ID" type="INT"/>
+            <column name="DESTINATION_COUNTRY_ID" type="INT"/>
+            <column name="STATUS" type="INT"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="timestamp with time zone"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="20" author="pjl-cargo-connect">
+        <createTable tableName="SUPPLIERS">
+            <column name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SUPPLIERS"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PJL_SUPPLIER_CODE" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TYPE_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ADDRESS" type="VARCHAR(1000)"/>
+            <column name="BOOKING_EMAIL" type="VARCHAR(320)"/>
+            <column name="TRACKING_EMAIL" type="VARCHAR(320)"/>
+            <column name="EMAIL" type="VARCHAR(320)"/>
+            <column name="PHONE" type="VARCHAR(100)"/>
+            <column name="MAP_LOCATION" type="VARCHAR(500)"/>
+            <column name="LOCATION_PROVINCE" type="VARCHAR(100)"/>
+            <column name="LOCATION_COUNTRY_ID" type="INT"/>
+            <column name="LOGO" type="VARCHAR(500)"/>
+            <column name="WEBSITE" type="VARCHAR(500)"/>
+            <column name="REMARK" type="VARCHAR(1000)"/>
+            <column name="STATUS" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="timestamp with time zone"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="21" author="pjl-cargo-connect">
+        <createTable tableName="SUPPLIER_SERVICES">
+            <column name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SUPPLIER_SERVICES"/>
+            </column>
+            <column name="SUPPLIER_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRODUCT_CODE" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRODUCT_NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRODUCT_DESCRIPTION" type="VARCHAR(255)"/>
+            <column name="SERVICE_TYPE_ID" type="INT"/>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="timestamp with time zone"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="22" author="pjl-cargo-connect">
+        <createTable tableName="SUPPLIER_SERVICE_COST">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SUPPLIER_SERVICE_COST"/>
+            </column>
+            <column name="SUPPLIER_PRODUCT_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COST" type="DECIMAL(19, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CURRENCY" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VALID_FROM" type="timestamp with time zone"/>
+            <column name="VALID_TO" type="timestamp with time zone"/>
+            <column name="STATUS" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="timestamp with time zone"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="23" author="pjl-cargo-connect">
+        <createTable tableName="TRANSPORTS">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSPORTS"/>
+            </column>
+            <column name="MBL" type="VARCHAR(255)"/>
+            <column name="HBL" type="VARCHAR(255)"/>
+            <column name="ETD" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ETA" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ATD" type="timestamp with time zone"/>
+            <column name="ATA" type="timestamp with time zone"/>
+            <column name="TRANSPORT_TYPE_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PORT_OF_LOADING_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PORT_OF_DISCHARGE_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PORT_OF_DESTINATION_ID" type="INT"/>
+            <column name="PJL_PRODUCT_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="QUOTE_ID" type="BIGINT"/>
+            <column name="NOTIFY_PARTY_ID" type="BIGINT"/>
+            <column name="CARRIER_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="HANDLING_AGENT_ID" type="INT"/>
+            <column name="FREIGHT_TYPE" type="INT"/>
+            <column name="CARRIER_NETWEIGHT" type="DOUBLE"/>
+            <column name="CARRIER_VOLUMEWEIGHT" type="DOUBLE"/>
+            <column name="CARRIER_CHARGEABLE_WEIGHT" type="DOUBLE"/>
+            <column name="CARRIER_VOLUME" type="DOUBLE"/>
+            <column name="WEIGHT_UNIT_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VOLUME_UNIT_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="HANDLINGINFO_REMARK" type="VARCHAR(500)"/>
+            <column name="REMARK" type="VARCHAR(500)"/>
+            <column name="TOTAL_FREIGHT_PREPAID" type="DECIMAL(19, 2)"/>
+            <column name="TOTAL_FREIGHT_COLLECT" type="DECIMAL(19, 2)"/>
+            <column name="CURRENCY_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MBL_ISSUE_DATE" type="DATE"/>
+            <column name="PACKAGE_UNIT_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="timestamp with time zone"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="24" author="pjl-cargo-connect">
+        <createTable tableName="TRANSPORT_CONNECTINGS">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSPORT_CONNECTINGS"/>
+            </column>
+            <column name="TRANSPORT_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FLEET_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VOY_NUMBER" type="VARCHAR(255)"/>
+            <column name="PORT_OF_DEPARTURE_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PORT_OF_DISCHARGE_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CONNECTION_SEQUENCE" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ETD" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ETA" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="timestamp with time zone"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="25" author="pjl-cargo-connect">
+        <createTable tableName="TRUCKERS">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRUCKERS"/>
+            </column>
+            <column name="SUPPLIER_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TRUCKER_NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PHONE1" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PHONE2" type="VARCHAR(255)"/>
+            <column name="PHONE3" type="VARCHAR(255)"/>
+            <column name="TELEGRAM_LINK" type="VARCHAR(500)"/>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="timestamp with time zone"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="26" author="pjl-cargo-connect">
+        <addUniqueConstraint columnNames="ACCOUNT_NUMBER" constraintName="IDX_CLIENT_ACCOUNT_UNQ_NUMBER"
+                             tableName="CLIENT_ACCOUNTS"/>
+    </changeSet>
+    <changeSet id="27" author="pjl-cargo-connect">
+        <addUniqueConstraint columnNames="CONTRACT_NUMBER" constraintName="IDX_CONTRACT_UNQ_CONTRACT_NUMBER"
+                             tableName="CONTRACTS"/>
+    </changeSet>
+    <changeSet id="28" author="pjl-cargo-connect">
+        <addUniqueConstraint columnNames="COUNTRY_CODE_ISO2" constraintName="IDX_COUNTRY_UNQ_ISO2"
+                             tableName="MASTERDATA_COUNTRIES"/>
+    </changeSet>
+    <changeSet id="29" author="pjl-cargo-connect">
+        <addUniqueConstraint columnNames="COUNTRY_CODE_ISO3" constraintName="IDX_COUNTRY_UNQ_ISO3"
+                             tableName="MASTERDATA_COUNTRIES"/>
+    </changeSet>
+    <changeSet id="30" author="pjl-cargo-connect">
+        <addUniqueConstraint columnNames="COUNTRY_NAME" constraintName="IDX_COUNTRY_UNQ_NAME"
+                             tableName="MASTERDATA_COUNTRIES"/>
+    </changeSet>
+    <changeSet id="31" author="pjl-cargo-connect">
+        <addUniqueConstraint columnNames="COMPANY_NAME, CLIENT_ACCOUNT_ID" constraintName="IDX_FACTORY_UNQ"
+                             tableName="COMPANIES"/>
+    </changeSet>
+    <changeSet id="32" author="pjl-cargo-connect">
+        <addUniqueConstraint columnNames="CARRIER_ID, FLEET_NUMBER, FLEET_TYPE" constraintName="IDX_FLEET_UNQ"
+                             tableName="FLEET"/>
+    </changeSet>
+    <changeSet id="33" author="pjl-cargo-connect">
+        <addUniqueConstraint columnNames="JOB_NUMBER" constraintName="IDX_JOB_UNQ" tableName="JOBS"/>
+    </changeSet>
+    <changeSet id="34" author="pjl-cargo-connect">
+        <addUniqueConstraint columnNames="IATA_CODE" constraintName="IDX_MASTERDATA_CARGO_PORT_UNQ_IATACODE"
+                             tableName="MASTERDATA_CARGO_PORTS"/>
+    </changeSet>
+    <changeSet id="35" author="pjl-cargo-connect">
+        <addUniqueConstraint columnNames="PORT_CODE, PORT_TYPE" constraintName="IDX_MASTERDATA_CARGO_PORT_UNQ_PORTCODE"
+                             tableName="MASTERDATA_CARGO_PORTS"/>
+    </changeSet>
+    <changeSet id="36" author="pjl-cargo-connect">
+        <addUniqueConstraint columnNames="NAME" constraintName="IDX_MASTERDATA_CONTAINER_SIZE_UNQ"
+                             tableName="MASTERDATA_CONTAINER_SIZE"/>
+    </changeSet>
+    <changeSet id="37" author="pjl-cargo-connect">
+        <addUniqueConstraint columnNames="NAME" constraintName="IDX_MASTERDATA_CONTAINER_TYPE_UNQ"
+                             tableName="MASTERDATA_CONTAINER_TYPES"/>
+    </changeSet>
+    <changeSet id="38" author="pjl-cargo-connect">
+        <addUniqueConstraint columnNames="NAME" constraintName="IDX_MASTERDATA_PRODUCT_CATEGORY_UNQ"
+                             tableName="MASTERDATA_PRODUCT_CATEGORIES"/>
+    </changeSet>
+    <changeSet id="39" author="pjl-cargo-connect">
+        <addUniqueConstraint columnNames="SUPPLIER_TYPE_NAME" constraintName="IDX_MASTERDATA_SUPPLIER_TYPE_UNQ"
+                             tableName="MASTERDATA_SUPPLIER_TYPES"/>
+    </changeSet>
+    <changeSet id="40" author="pjl-cargo-connect">
+        <addUniqueConstraint columnNames="NAME" constraintName="IDX_MASTERDATA_TRANSPORT_TYPE_UNQ"
+                             tableName="MASTERDATA_MODE_OF_TRANSPORT"/>
+    </changeSet>
+    <changeSet id="41" author="pjl-cargo-connect">
+        <addUniqueConstraint columnNames="ABBREVIATION" constraintName="IDX_MASTERDATA_UNIT_UNQ"
+                             tableName="MASTERDATA_UNIT"/>
+    </changeSet>
+    <changeSet id="42" author="pjl-cargo-connect">
+        <addUniqueConstraint columnNames="NAME" constraintName="IDX_MASTERDATA_UNIT_UNQ_1" tableName="MASTERDATA_UNIT"/>
+    </changeSet>
+    <changeSet id="43" author="pjl-cargo-connect">
+        <addUniqueConstraint columnNames="CODE" constraintName="IDX_MASTER_DATA_CURRENCY_UNQ"
+                             tableName="MASTERDATA_CURRENCIES"/>
+    </changeSet>
+    <changeSet id="44" author="pjl-cargo-connect">
+        <addUniqueConstraint columnNames="PRODUCT_CODE" constraintName="IDX_PJL_PRODUCT_UNQ" tableName="PJL_PRODUCTS"/>
+    </changeSet>
+    <changeSet id="45" author="pjl-cargo-connect">
+        <addUniqueConstraint columnNames="PRODUCT_CODE" constraintName="IDX_SUPPLIER_PRODUCT_UNQ"
+                             tableName="SUPPLIER_SERVICES"/>
+    </changeSet>
+    <changeSet id="46" author="pjl-cargo-connect">
+        <addUniqueConstraint columnNames="PJL_SUPPLIER_CODE" constraintName="IDX_SUPPLIER_UNQ" tableName="SUPPLIERS"/>
+    </changeSet>
+    <changeSet id="47" author="pjl-cargo-connect">
+        <addUniqueConstraint columnNames="TRUCKER_NAME, PHONE1" constraintName="IDX_TRUCKER_UNQ" tableName="TRUCKERS"/>
+    </changeSet>
+    <changeSet id="48" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_CARGO_PORTS_COUNTRY" tableName="MASTERDATA_CARGO_PORTS">
+            <column name="COUNTRY_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="COUNTRY_ID" baseTableName="MASTERDATA_CARGO_PORTS"
+                                 constraintName="FK_MASTERDATA_CARGO_PORTS_ON_COUNTRY" referencedColumnNames="ID"
+                                 referencedTableName="MASTERDATA_COUNTRIES"/>
+    </changeSet>
+    <changeSet id="49" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_CLIENT_ACCOUNT_UNQ_NAME" tableName="CLIENT_ACCOUNTS" unique="true">
+            <column name="ACCOUNT_NAME"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="50" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_CONTAINERS_CONTAINER_SIZE" tableName="CONTAINERS">
+            <column name="CONTAINER_SIZE_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="CONTAINER_SIZE_ID" baseTableName="CONTAINERS"
+                                 constraintName="FK_CONTAINERS_ON_CONTAINER_SIZE" referencedColumnNames="ID"
+                                 referencedTableName="MASTERDATA_CONTAINER_SIZE"/>
+    </changeSet>
+    <changeSet id="51" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_CONTAINERS_CONTAINER_TYPE" tableName="CONTAINERS">
+            <column name="CONTAINER_TYPE_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="CONTAINER_TYPE_ID" baseTableName="CONTAINERS"
+                                 constraintName="FK_CONTAINERS_ON_CONTAINER_TYPE" referencedColumnNames="ID"
+                                 referencedTableName="MASTERDATA_CONTAINER_TYPES"/>
+    </changeSet>
+    <changeSet id="52" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_CONTAINERS_DEPOT" tableName="CONTAINERS">
+            <column name="DEPOT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="DEPOT_ID" baseTableName="CONTAINERS"
+                                 constraintName="FK_CONTAINERS_ON_DEPOT" referencedColumnNames="ID"
+                                 referencedTableName="SUPPLIERS"/>
+    </changeSet>
+    <changeSet id="53" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_CONTAINERS_SHIPMEN" tableName="CONTAINERS">
+            <column name="SHIPMEN_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="SHIPMEN_ID" baseTableName="CONTAINERS"
+                                 constraintName="FK_CONTAINERS_ON_SHIPMEN" referencedColumnNames="ID"
+                                 referencedTableName="SHIPMENTS"/>
+    </changeSet>
+    <changeSet id="54" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_CONTAINERS_VOLUME_UNIT" tableName="CONTAINERS">
+            <column name="VOLUME_UNIT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="VOLUME_UNIT_ID" baseTableName="CONTAINERS"
+                                 constraintName="FK_CONTAINERS_ON_VOLUME_UNIT" referencedColumnNames="ID"
+                                 referencedTableName="MASTERDATA_UNIT"/>
+    </changeSet>
+    <changeSet id="55" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_CONTAINERS_WEIGHT_UNIT" tableName="CONTAINERS">
+            <column name="WEIGHT_UNIT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="WEIGHT_UNIT_ID" baseTableName="CONTAINERS"
+                                 constraintName="FK_CONTAINERS_ON_WEIGHT_UNIT" referencedColumnNames="ID"
+                                 referencedTableName="MASTERDATA_UNIT"/>
+    </changeSet>
+    <changeSet id="56" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_FACTORIES_CLIENT_ACCOUNT" tableName="COMPANIES">
+            <column name="CLIENT_ACCOUNT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="CLIENT_ACCOUNT_ID" baseTableName="COMPANIES"
+                                 constraintName="FK_COMPANIES_ON_CLIENT_ACCOUNT" referencedColumnNames="ID"
+                                 referencedTableName="CLIENT_ACCOUNTS"/>
+    </changeSet>
+    <changeSet id="57" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_FLEET_CARRIER" tableName="FLEET">
+            <column name="CARRIER_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="CARRIER_ID" baseTableName="FLEET" constraintName="FK_FLEET_ON_CARRIER"
+                                 referencedColumnNames="ID" referencedTableName="SUPPLIERS"/>
+    </changeSet>
+    <changeSet id="58" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_JOBS_FACTORY" tableName="JOBS">
+            <column name="COMPANY_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="COMPANY_ID" baseTableName="JOBS" constraintName="FK_JOBS_ON_COMPANY"
+                                 referencedColumnNames="ID" referencedTableName="COMPANIES"/>
+    </changeSet>
+    <changeSet id="59" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_PJL_PRODUCTS_PRODUCTCATEGORY" tableName="PJL_PRODUCTS">
+            <column name="PRODUCTCATEGORY_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="PRODUCTCATEGORY_ID" baseTableName="PJL_PRODUCTS"
+                                 constraintName="FK_PJL_PRODUCTS_ON_PRODUCTCATEGORY" referencedColumnNames="ID"
+                                 referencedTableName="MASTERDATA_PRODUCT_CATEGORIES"/>
+    </changeSet>
+    <changeSet id="60" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_PRICE_QUOTES_ACCOUNT" tableName="PRICE_QUOTES">
+            <column name="ACCOUNT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="ACCOUNT_ID" baseTableName="PRICE_QUOTES"
+                                 constraintName="FK_PRICE_QUOTES_ON_ACCOUNT" referencedColumnNames="ID"
+                                 referencedTableName="CLIENT_ACCOUNTS"/>
+    </changeSet>
+    <changeSet id="61" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_PRICE_QUOTES_CURRENCY" tableName="PRICE_QUOTES">
+            <column name="CURRENCY_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="CURRENCY_ID" baseTableName="PRICE_QUOTES"
+                                 constraintName="FK_PRICE_QUOTES_ON_CURRENCY" referencedColumnNames="ID"
+                                 referencedTableName="MASTERDATA_CURRENCIES"/>
+    </changeSet>
+    <changeSet id="62" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_PRICE_QUOTES_PJL_PRODUCT" tableName="PRICE_QUOTES">
+            <column name="PJL_PRODUCT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="PJL_PRODUCT_ID" baseTableName="PRICE_QUOTES"
+                                 constraintName="FK_PRICE_QUOTES_ON_PJL_PRODUCT" referencedColumnNames="ID"
+                                 referencedTableName="PJL_PRODUCTS"/>
+    </changeSet>
+    <changeSet id="63" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_SHIPMENT_CONSIGNEE" tableName="SHIPMENTS">
+            <column name="CONSIGNEE_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="CONSIGNEE_ID" baseTableName="SHIPMENTS"
+                                 constraintName="FK_SHIPMENTS_ON_CONSIGNEE" referencedColumnNames="ID"
+                                 referencedTableName="COMPANIES"/>
+    </changeSet>
+    <changeSet id="64" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_SHIPMENT_DESTINATION_COUNTRY" tableName="SHIPMENTS">
+            <column name="DESTINATION_COUNTRY_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="DESTINATION_COUNTRY_ID" baseTableName="SHIPMENTS"
+                                 constraintName="FK_SHIPMENTS_ON_DESTINATION_COUNTRY" referencedColumnNames="ID"
+                                 referencedTableName="MASTERDATA_COUNTRIES"/>
+    </changeSet>
+    <changeSet id="65" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_SHIPMENT_JOB" tableName="SHIPMENTS">
+            <column name="JOB_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="JOB_ID" baseTableName="SHIPMENTS" constraintName="FK_SHIPMENTS_ON_JOB"
+                                 referencedColumnNames="ID" referencedTableName="JOBS"/>
+    </changeSet>
+    <changeSet id="66" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_SHIPMENT_ORIGIN_COUNTRY" tableName="SHIPMENTS">
+            <column name="ORIGIN_COUNTRY_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="ORIGIN_COUNTRY_ID" baseTableName="SHIPMENTS"
+                                 constraintName="FK_SHIPMENTS_ON_ORIGIN_COUNTRY" referencedColumnNames="ID"
+                                 referencedTableName="MASTERDATA_COUNTRIES"/>
+    </changeSet>
+    <changeSet id="67" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_SHIPMENT_SHIPPER" tableName="SHIPMENTS">
+            <column name="SHIPPER_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="SHIPPER_ID" baseTableName="SHIPMENTS"
+                                 constraintName="FK_SHIPMENTS_ON_SHIPPER" referencedColumnNames="ID"
+                                 referencedTableName="COMPANIES"/>
+    </changeSet>
+    <changeSet id="68" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_SUPPLIER_LOCATION_COUNTRY" tableName="SUPPLIERS">
+            <column name="LOCATION_COUNTRY_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="LOCATION_COUNTRY_ID" baseTableName="SUPPLIERS"
+                                 constraintName="FK_SUPPLIERS_ON_LOCATION_COUNTRY" referencedColumnNames="ID"
+                                 referencedTableName="MASTERDATA_COUNTRIES"/>
+    </changeSet>
+    <changeSet id="69" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_SUPPLIER_SERVICES_SERVICE_TYPE" tableName="SUPPLIER_SERVICES">
+            <column name="SERVICE_TYPE_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="SERVICE_TYPE_ID" baseTableName="SUPPLIER_SERVICES"
+                                 constraintName="FK_SUPPLIER_SERVICES_ON_SERVICE_TYPE" referencedColumnNames="ID"
+                                 referencedTableName="MASTERDATA_SUPPLIER_TYPES"/>
+    </changeSet>
+    <changeSet id="70" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_SUPPLIER_SERVICES_SUPPLIER" tableName="SUPPLIER_SERVICES">
+            <column name="SUPPLIER_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="SUPPLIER_ID" baseTableName="SUPPLIER_SERVICES"
+                                 constraintName="FK_SUPPLIER_SERVICES_ON_SUPPLIER" referencedColumnNames="ID"
+                                 referencedTableName="SUPPLIERS"/>
+    </changeSet>
+    <changeSet id="71" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_SUPPLIER_SERVICE_COST_SUPPLIER_SERVICE" tableName="SUPPLIER_SERVICE_COST">
+            <column name="SUPPLIER_PRODUCT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="SUPPLIER_PRODUCT_ID" baseTableName="SUPPLIER_SERVICE_COST"
+                                 constraintName="FK_SUPPLIER_SERVICE_COST_ON_SUPPLIER_PRODUCT"
+                                 referencedColumnNames="ID" referencedTableName="SUPPLIER_SERVICES"/>
+    </changeSet>
+    <changeSet id="72" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_SUPPLIER_TYPE" tableName="SUPPLIERS">
+            <column name="TYPE_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="TYPE_ID" baseTableName="SUPPLIERS"
+                                 constraintName="FK_SUPPLIERS_ON_TYPE" referencedColumnNames="ID"
+                                 referencedTableName="MASTERDATA_SUPPLIER_TYPES"/>
+    </changeSet>
+    <changeSet id="73" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_TRANSPORTS_CARRIER" tableName="TRANSPORTS">
+            <column name="CARRIER_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="CARRIER_ID" baseTableName="TRANSPORTS"
+                                 constraintName="FK_TRANSPORTS_ON_CARRIER" referencedColumnNames="ID"
+                                 referencedTableName="SUPPLIERS"/>
+    </changeSet>
+    <changeSet id="74" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_TRANSPORTS_CURRENCY" tableName="TRANSPORTS">
+            <column name="CURRENCY_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="CURRENCY_ID" baseTableName="TRANSPORTS"
+                                 constraintName="FK_TRANSPORTS_ON_CURRENCY" referencedColumnNames="ID"
+                                 referencedTableName="MASTERDATA_CURRENCIES"/>
+    </changeSet>
+    <changeSet id="75" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_TRANSPORTS_HANDLING_AGENT" tableName="TRANSPORTS">
+            <column name="HANDLING_AGENT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="HANDLING_AGENT_ID" baseTableName="TRANSPORTS"
+                                 constraintName="FK_TRANSPORTS_ON_HANDLING_AGENT" referencedColumnNames="ID"
+                                 referencedTableName="SUPPLIERS"/>
+    </changeSet>
+    <changeSet id="76" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_TRANSPORTS_NOTIFY_PARTY" tableName="TRANSPORTS">
+            <column name="NOTIFY_PARTY_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="NOTIFY_PARTY_ID" baseTableName="TRANSPORTS"
+                                 constraintName="FK_TRANSPORTS_ON_NOTIFY_PARTY" referencedColumnNames="ID"
+                                 referencedTableName="COMPANIES"/>
+    </changeSet>
+    <changeSet id="77" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_TRANSPORTS_PACKAGE_UNIT" tableName="TRANSPORTS">
+            <column name="PACKAGE_UNIT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="PACKAGE_UNIT_ID" baseTableName="TRANSPORTS"
+                                 constraintName="FK_TRANSPORTS_ON_PACKAGE_UNIT" referencedColumnNames="ID"
+                                 referencedTableName="MASTERDATA_UNIT"/>
+    </changeSet>
+    <changeSet id="78" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_TRANSPORTS_PJL_PRODUCT" tableName="TRANSPORTS">
+            <column name="PJL_PRODUCT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="PJL_PRODUCT_ID" baseTableName="TRANSPORTS"
+                                 constraintName="FK_TRANSPORTS_ON_PJL_PRODUCT" referencedColumnNames="ID"
+                                 referencedTableName="PJL_PRODUCTS"/>
+    </changeSet>
+    <changeSet id="79" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_TRANSPORTS_PORT_OF_DESTINATION" tableName="TRANSPORTS">
+            <column name="PORT_OF_DESTINATION_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="PORT_OF_DESTINATION_ID" baseTableName="TRANSPORTS"
+                                 constraintName="FK_TRANSPORTS_ON_PORT_OF_DESTINATION" referencedColumnNames="ID"
+                                 referencedTableName="MASTERDATA_CARGO_PORTS"/>
+    </changeSet>
+    <changeSet id="80" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_TRANSPORTS_PORT_OF_DISCHARGE" tableName="TRANSPORTS">
+            <column name="PORT_OF_DISCHARGE_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="PORT_OF_DISCHARGE_ID" baseTableName="TRANSPORTS"
+                                 constraintName="FK_TRANSPORTS_ON_PORT_OF_DISCHARGE" referencedColumnNames="ID"
+                                 referencedTableName="MASTERDATA_CARGO_PORTS"/>
+    </changeSet>
+    <changeSet id="81" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_TRANSPORTS_PORT_OF_LOADING" tableName="TRANSPORTS">
+            <column name="PORT_OF_LOADING_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="PORT_OF_LOADING_ID" baseTableName="TRANSPORTS"
+                                 constraintName="FK_TRANSPORTS_ON_PORT_OF_LOADING" referencedColumnNames="ID"
+                                 referencedTableName="MASTERDATA_CARGO_PORTS"/>
+    </changeSet>
+    <changeSet id="82" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_TRANSPORTS_QUOTE" tableName="TRANSPORTS">
+            <column name="QUOTE_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="QUOTE_ID" baseTableName="TRANSPORTS"
+                                 constraintName="FK_TRANSPORTS_ON_QUOTE" referencedColumnNames="ID"
+                                 referencedTableName="PRICE_QUOTES"/>
+    </changeSet>
+    <changeSet id="83" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_TRANSPORTS_TRANSPORT_TYPE" tableName="TRANSPORTS">
+            <column name="TRANSPORT_TYPE_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="TRANSPORT_TYPE_ID" baseTableName="TRANSPORTS"
+                                 constraintName="FK_TRANSPORTS_ON_TRANSPORT_TYPE" referencedColumnNames="ID"
+                                 referencedTableName="MASTERDATA_MODE_OF_TRANSPORT"/>
+    </changeSet>
+    <changeSet id="84" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_TRANSPORTS_VOLUME_UNIT" tableName="TRANSPORTS">
+            <column name="VOLUME_UNIT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="VOLUME_UNIT_ID" baseTableName="TRANSPORTS"
+                                 constraintName="FK_TRANSPORTS_ON_VOLUME_UNIT" referencedColumnNames="ID"
+                                 referencedTableName="MASTERDATA_UNIT"/>
+    </changeSet>
+    <changeSet id="85" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_TRANSPORTS_WEIGHT_UNIT" tableName="TRANSPORTS">
+            <column name="WEIGHT_UNIT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="WEIGHT_UNIT_ID" baseTableName="TRANSPORTS"
+                                 constraintName="FK_TRANSPORTS_ON_WEIGHT_UNIT" referencedColumnNames="ID"
+                                 referencedTableName="MASTERDATA_UNIT"/>
+    </changeSet>
+    <changeSet id="86" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_TRANSPORT_CONNECTINGS_FLEET" tableName="TRANSPORT_CONNECTINGS">
+            <column name="FLEET_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="FLEET_ID" baseTableName="TRANSPORT_CONNECTINGS"
+                                 constraintName="FK_TRANSPORT_CONNECTINGS_ON_FLEET" referencedColumnNames="ID"
+                                 referencedTableName="FLEET"/>
+    </changeSet>
+    <changeSet id="87" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_TRANSPORT_CONNECTINGS_PORT_OF_DEPARTURE" tableName="TRANSPORT_CONNECTINGS">
+            <column name="PORT_OF_DEPARTURE_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="PORT_OF_DEPARTURE_ID" baseTableName="TRANSPORT_CONNECTINGS"
+                                 constraintName="FK_TRANSPORT_CONNECTINGS_ON_PORT_OF_DEPARTURE"
+                                 referencedColumnNames="ID" referencedTableName="MASTERDATA_CARGO_PORTS"/>
+    </changeSet>
+    <changeSet id="88" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_TRANSPORT_CONNECTINGS_PORT_OF_DISCHARGE" tableName="TRANSPORT_CONNECTINGS">
+            <column name="PORT_OF_DISCHARGE_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="PORT_OF_DISCHARGE_ID" baseTableName="TRANSPORT_CONNECTINGS"
+                                 constraintName="FK_TRANSPORT_CONNECTINGS_ON_PORT_OF_DISCHARGE"
+                                 referencedColumnNames="ID" referencedTableName="MASTERDATA_CARGO_PORTS"/>
+    </changeSet>
+    <changeSet id="89" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_TRANSPORT_CONNECTINGS_TRANSPORT" tableName="TRANSPORT_CONNECTINGS">
+            <column name="TRANSPORT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="TRANSPORT_ID" baseTableName="TRANSPORT_CONNECTINGS"
+                                 constraintName="FK_TRANSPORT_CONNECTINGS_ON_TRANSPORT" referencedColumnNames="ID"
+                                 referencedTableName="TRANSPORTS"/>
+    </changeSet>
+    <changeSet id="90" author="pjl-cargo-connect">
+        <createIndex indexName="IDX_TRUCKERS_SUPPLIER" tableName="TRUCKERS">
+            <column name="SUPPLIER_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="SUPPLIER_ID" baseTableName="TRUCKERS"
+                                 constraintName="FK_TRUCKERS_ON_SUPPLIER" referencedColumnNames="ID"
+                                 referencedTableName="SUPPLIERS"/>
+    </changeSet>
+    <changeSet id="91" author="pjl-cargo-connect">
+        <addForeignKeyConstraint baseColumnNames="CLIENT_ACCOUNT_ID" baseTableName="CONTRACT_CLIENT_ACCOUNT_LINKS"
+                                 constraintName="FK_CONCLIACCLIN_ON_CLIENT_ACCOUNT" referencedColumnNames="ID"
+                                 referencedTableName="CLIENT_ACCOUNTS"/>
+    </changeSet>
+    <changeSet id="92" author="pjl-cargo-connect">
+        <addForeignKeyConstraint baseColumnNames="CONTRACT_ID" baseTableName="CONTRACT_CLIENT_ACCOUNT_LINKS"
+                                 constraintName="FK_CONCLIACCLIN_ON_CONTRACT" referencedColumnNames="ID"
+                                 referencedTableName="CONTRACTS"/>
+    </changeSet>
+</databaseChangeLog>
