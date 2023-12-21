@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://masterdataCountryDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="masterdataCountryDc"
+                  class="com.company.pjlcargoconnect.entity.MasterdataCountry">
+            <fetchPlan extends="_base"/>
+            <loader/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="masterdataCountryDc">
+            <textField id="countryNameField" property="countryName"/>
+            <textField id="countryCodeIso2Field" property="countryCodeIso2"/>
+            <textField id="countryCodeIso3Field" property="countryCodeIso3"/>
+            <textField id="officialLanguageCodeIso2Field" property="officialLanguageCodeIso2"/>
+            <textField id="phoneCodeField" property="phoneCode"/>
+            <select id="continentField" property="continent"/>
+            <textField id="currencyField" property="currency"/>
+            <textField id="timezoneField" property="timezone"/>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

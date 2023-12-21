@@ -3,6 +3,10 @@
 
     <menu id="application" title="msg://com.company.pjlcargoconnect/menu.application.title" opened="true">
         <item view="User.list" title="msg://com.company.pjlcargoconnect.view.user/UserListView.title"/>
+        <item view="MasterdataCargoPort.list"
+              title="msg://com.company.pjlcargoconnect.view.masterdatacargoport/masterdataCargoPortListView.title"/>
+        <item view="MasterdataCountry.list"
+              title="msg://com.company.pjlcargoconnect.view.masterdatacountry/masterdataCountryListView.title"/>
     </menu>
 
 </menu-config>

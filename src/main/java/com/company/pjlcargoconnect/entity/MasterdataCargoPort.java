@@ -3,8 +3,10 @@ package com.company.pjlcargoconnect.entity;
 import io.jmix.core.DeletePolicy;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.entity.annotation.OnDeleteInverse;
+import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -14,7 +16,7 @@ import java.time.OffsetDateTime;
 
 @JmixEntity
 @Table(name = "MASTERDATA_CARGO_PORTS", indexes = {
-        @Index(name = "IDX_CARGO_PORTS_COUNTRY", columnList = "COUNTRY_ID")
+        @Index(name = "IDX_MASTERDATA_CARGO_PORT", columnList = "COUNTRY_CODE_ISO2")
 }, uniqueConstraints = {
         @UniqueConstraint(name = "IDX_MASTERDATA_CARGO_PORT_UNQ_PORTCODE", columnNames = {"PORT_CODE", "PORT_TYPE"}),
         @UniqueConstraint(name = "IDX_MASTERDATA_CARGO_PORT_UNQ_IATACODE", columnNames = {"IATA_CODE"})
@@ -26,20 +28,24 @@ public class MasterdataCargoPort {
     @Id
     private Integer id;
 
-    @Column(name = "PORT_NAME")
+    @NotNull
+    @Column(name = "PORT_NAME", nullable = false)
     private String portName;
 
-    @Column(name = "PORT_CODE", length = 10)
+    @NotNull
+    @InstanceName
+    @Column(name = "PORT_CODE", nullable = false, length = 10)
     private String portCode;
 
-    @Column(name = "PORT_TYPE")
+    @NotNull
+    @Column(name = "PORT_TYPE", nullable = false)
     private Integer portType;
 
     @Column(name = "IATA_CODE", length = 10)
     private String iataCode;
 
     @OnDeleteInverse(DeletePolicy.DENY)
-    @JoinColumn(name = "COUNTRY_ID")
+    @JoinColumn(name = "COUNTRY_CODE_ISO2", referencedColumnName = "COUNTRY_CODE_ISO2")
     @ManyToOne(fetch = FetchType.LAZY)
     private MasterdataCountry country;
 

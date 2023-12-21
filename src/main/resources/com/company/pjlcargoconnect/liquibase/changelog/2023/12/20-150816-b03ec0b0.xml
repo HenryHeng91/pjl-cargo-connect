@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="pjl-cargo-connect">
+        <addNotNullConstraint columnDataType="INT" columnName="CONTINENT" tableName="MASTERDATA_COUNTRIES"
+                              validate="true"/>
+    </changeSet>
+    <changeSet id="2" author="pjl-cargo-connect">
+        <addNotNullConstraint columnDataType="VARCHAR(2)" columnName="COUNTRY_CODE_ISO2"
+                              tableName="MASTERDATA_COUNTRIES" validate="true"/>
+    </changeSet>
+    <changeSet id="3" author="pjl-cargo-connect">
+        <addNotNullConstraint columnDataType="VARCHAR(3)" columnName="COUNTRY_CODE_ISO3"
+                              tableName="MASTERDATA_COUNTRIES" validate="true"/>
+    </changeSet>
+    <changeSet id="4" author="pjl-cargo-connect">
+        <addNotNullConstraint columnDataType="VARCHAR(255)" columnName="COUNTRY_NAME" tableName="MASTERDATA_COUNTRIES"
+                              validate="true"/>
+    </changeSet>
+    <changeSet id="5" author="pjl-cargo-connect">
+        <addNotNullConstraint columnDataType="VARCHAR(100)" columnName="TIMEZONE" tableName="MASTERDATA_COUNTRIES"
+                              validate="true"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,8 +1,12 @@
 package com.company.pjlcargoconnect.entity;
 
+import io.jmix.core.MetadataTools;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
+import io.jmix.core.metamodel.annotation.DependsOnProperties;
+import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -24,13 +28,16 @@ public class MasterdataCountry {
     @Id
     private Integer id;
 
-    @Column(name = "COUNTRY_NAME")
+    @NotNull
+    @Column(name = "COUNTRY_NAME", nullable = false)
     private String countryName;
 
-    @Column(name = "COUNTRY_CODE_ISO2", length = 2)
+    @NotNull
+    @Column(name = "COUNTRY_CODE_ISO2", nullable = false, length = 2)
     private String countryCodeIso2;
 
-    @Column(name = "COUNTRY_CODE_ISO3", length = 3)
+    @NotNull
+    @Column(name = "COUNTRY_CODE_ISO3", nullable = false, length = 3)
     private String countryCodeIso3;
 
     @Column(name = "OFFICIAL_LANGUAGE_CODE_ISO2", length = 3)
@@ -178,5 +185,13 @@ public class MasterdataCountry {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    @InstanceName
+    @DependsOnProperties({"countryCodeIso2", "countryName"})
+    public String getInstanceName(MetadataTools metadataTools) {
+        return String.format("%s - %s",
+                metadataTools.format(countryCodeIso2),
+                metadataTools.format(countryName));
     }
 }

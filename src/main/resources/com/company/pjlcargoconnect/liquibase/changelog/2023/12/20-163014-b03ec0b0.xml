@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="pjl-cargo-connect">
+        <dropForeignKeyConstraint baseTableName="MASTERDATA_CARGO_PORTS"
+                                  constraintName="FK_MASTERDATA_CARGO_PORTS_ON_COUNTRY"/>
+    </changeSet>
+    <changeSet id="3" author="pjl-cargo-connect">
+        <addForeignKeyConstraint baseColumnNames="COUNTRY_CODE_ISO2" baseTableName="MASTERDATA_CARGO_PORTS"
+                                 constraintName="FK_MASTERDATA_CARGO_PORTS_ON_COUNTRY_CODE_ISO2"
+                                 referencedColumnNames="COUNTRY_CODE_ISO2" referencedTableName="MASTERDATA_COUNTRIES"/>
+    </changeSet>
+</databaseChangeLog>

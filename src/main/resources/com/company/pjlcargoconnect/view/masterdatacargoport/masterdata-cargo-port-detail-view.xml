@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://masterdataCargoPortDetailView.title"
+      focusComponent="form">
+    <data>
+        <collection id="masterdataCountriesDc" class="com.company.pjlcargoconnect.entity.MasterdataCountry">
+            <fetchPlan   extends="_base"/>
+            <loader id="masterdataCountriesDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from MasterdataCountry e  
+                    order by e.countryName asc]]>
+                </query>
+            </loader>
+        </collection>
+        <instance id="masterdataCargoPortDc"
+                  class="com.company.pjlcargoconnect.entity.MasterdataCargoPort">
+            <fetchPlan extends="_base">
+                <property name="country" fetchPlan="_instance_name">
+                    <property name="countryName"/>
+                </property>
+            </fetchPlan>
+            <loader/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="masterdataCargoPortDc">
+            <textField id="portNameField" property="portName"/>
+            <textField id="portCodeField" property="portCode"/>
+            <select id="portTypeField" property="portType"/>
+            <textField id="iataCodeField" property="iataCode"/>
+            <entityComboBox id="countryField" property="country" itemsContainer="masterdataCountriesDc"/>
+            <textField id="cityField" property="city"/>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>
