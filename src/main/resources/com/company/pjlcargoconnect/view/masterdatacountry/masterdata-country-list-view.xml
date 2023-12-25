@@ -7,7 +7,7 @@
         <collection id="masterdataCountriesDc"
                     class="com.company.pjlcargoconnect.entity.MasterdataCountry">
             <fetchPlan extends="_base"/>
-            <loader id="masterdataCountriesDl" readOnly="true">
+            <loader id="masterdataCountriesDl">
                 <query>
                     <![CDATA[select e from MasterdataCountry e]]>
                 </query>
@@ -32,8 +32,8 @@
         </genericFilter>
         <hbox id="buttonsPanel" classNames="buttons-panel">
             <button id="createBtn" action="masterdataCountriesDataGrid.create"/>
-            <button id="editBtn" action="masterdataCountriesDataGrid.edit"/>
             <button id="removeBtn" action="masterdataCountriesDataGrid.remove"/>
+            <button id="exportBtn" action="masterdataCountriesDataGrid.excelExport"/>
             <simplePagination id="pagination" dataLoader="masterdataCountriesDl"/>
         </hbox>
         <dataGrid id="masterdataCountriesDataGrid"
@@ -41,21 +41,28 @@
                   minHeight="20em"
                   dataContainer="masterdataCountriesDc"
                   columnReorderingAllowed="true"
-                  selectionMode="MULTI">
+                  selectionMode="MULTI" editorBuffered="true">
             <actions>
                 <action id="create" type="list_create"/>
                 <action id="edit" type="list_edit"/>
                 <action id="remove" type="list_remove"/>
+                <action id="excelExport" type="grdexp_excelExport"/>
             </actions>
             <columns resizable="true">
-                <column property="countryName"/>
-                <column property="countryCodeIso2"/>
-                <column property="countryCodeIso3"/>
-                <column property="officialLanguageCodeIso2"/>
-                <column property="phoneCode"/>
-                <column property="continent"/>
-                <column property="currency"/>
-                <column property="timezone"/>
+                <column property="countryName" editable="true" filterable="true"/>
+                <column property="countryCodeIso2" filterable="true"/>
+                <column property="countryCodeIso3" filterable="true"/>
+                <column property="officialLanguageCodeIso2" editable="true"/>
+                <column property="phoneCode" editable="true"/>
+                <column property="continent" editable="true"/>
+                <column property="currency" editable="true"/>
+                <column property="timezone" editable="true"/>
+                <editorActionsColumn width="8em" flexGrow="0">
+                    <editButton text="Edit" icon="PENCIL"/>
+                    <saveButton icon="CHECK" themeNames="success"/>
+                    <cancelButton icon="CLOSE" themeNames="error"/>
+                </editorActionsColumn>
+
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

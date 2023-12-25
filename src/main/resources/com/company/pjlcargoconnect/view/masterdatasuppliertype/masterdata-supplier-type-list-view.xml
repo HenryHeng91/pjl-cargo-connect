@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
       xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
-      title="msg://masterdataCargoPortListView.title"
-      focusComponent="masterdataCargoPortsDataGrid">
+      title="msg://masterdataSupplierTypeListView.title"
+      focusComponent="masterdataSupplierTypesDataGrid">
     <data>
-        <collection id="masterdataCargoPortsDc"
-                    class="com.company.pjlcargoconnect.entity.MasterdataCargoPort">
-            <fetchPlan extends="_base">
-                <property name="country" fetchPlan="_instance_name">
-                    <property name="countryName"/>
-                </property>
-            </fetchPlan>
-            <loader id="masterdataCargoPortsDl">
+        <collection id="masterdataSupplierTypesDc"
+                    class="com.company.pjlcargoconnect.entity.MasterdataSupplierType">
+            <fetchPlan extends="_base"/>
+            <loader id="masterdataSupplierTypesDl">
                 <query>
-                    <![CDATA[select e from MasterdataCargoPort e]]>
+                    <![CDATA[select e from MasterdataSupplierType e]]>
                 </query>
             </loader>
         </collection>
@@ -21,7 +17,6 @@
     <facets>
         <dataLoadCoordinator auto="true"/>
         <urlQueryParameters>
-            <genericFilter component="genericFilter"/>
             <pagination component="pagination"/>
         </urlQueryParameters>
     </facets>
@@ -30,20 +25,18 @@
         <action id="discardAction" type="lookup_discard"/>
     </actions>
     <layout>
-        <genericFilter id="genericFilter"
-                       dataLoader="masterdataCargoPortsDl">
-            <properties include=".*"/>
-        </genericFilter>
+        <propertyFilter dataLoader="masterdataSupplierTypesDl" operation="CONTAINS" property="supplierTypeName"
+                        label="Search" autoApply="true"/>
         <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button id="createBtn" action="masterdataCargoPortsDataGrid.create"/>
-            <button id="removeBtn" action="masterdataCargoPortsDataGrid.remove"/>
-            <button id="exportBtn" action="masterdataCargoPortsDataGrid.excelExport"/>
-            <simplePagination id="pagination" dataLoader="masterdataCargoPortsDl"/>
+            <button id="createBtn" action="masterdataSupplierTypesDataGrid.create"/>
+            <button id="removeBtn" action="masterdataSupplierTypesDataGrid.remove"/>
+            <button id="exportBtn" action="masterdataSupplierTypesDataGrid.excelExport"/>
+            <simplePagination id="pagination" dataLoader="masterdataSupplierTypesDl"/>
         </hbox>
-        <dataGrid id="masterdataCargoPortsDataGrid"
+        <dataGrid id="masterdataSupplierTypesDataGrid"
                   width="100%"
                   minHeight="20em"
-                  dataContainer="masterdataCargoPortsDc"
+                  dataContainer="masterdataSupplierTypesDc"
                   columnReorderingAllowed="true"
                   selectionMode="MULTI"
                   editorBuffered="true">
@@ -54,12 +47,7 @@
                 <action id="excelExport" type="grdexp_excelExport"/>
             </actions>
             <columns resizable="true">
-                <column property="portName" editable="true"/>
-                <column property="portCode"/>
-                <column property="portType" editable="true"/>
-                <column property="iataCode" editable="true"/>
-                <column property="country" editable="true"/>
-                <column property="city" editable="true"/>
+                <column property="supplierTypeName" editable="true"/>
                 <editorActionsColumn width="8em" flexGrow="0">
                     <editButton text="Edit" icon="PENCIL"/>
                     <saveButton icon="CHECK" themeNames="success"/>

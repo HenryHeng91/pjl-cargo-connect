@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
       xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
-      title="msg://masterdataCargoPortListView.title"
-      focusComponent="masterdataCargoPortsDataGrid">
+      title="msg://masterdataUnitListView.title"
+      focusComponent="masterdataUnitsDataGrid">
     <data>
-        <collection id="masterdataCargoPortsDc"
-                    class="com.company.pjlcargoconnect.entity.MasterdataCargoPort">
-            <fetchPlan extends="_base">
-                <property name="country" fetchPlan="_instance_name">
-                    <property name="countryName"/>
-                </property>
-            </fetchPlan>
-            <loader id="masterdataCargoPortsDl">
+        <collection id="masterdataUnitsDc"
+                    class="com.company.pjlcargoconnect.entity.MasterdataUnit">
+            <fetchPlan extends="_base"/>
+            <loader id="masterdataUnitsDl">
                 <query>
-                    <![CDATA[select e from MasterdataCargoPort e]]>
+                    <![CDATA[select e from MasterdataUnit e]]>
                 </query>
             </loader>
         </collection>
@@ -21,7 +17,6 @@
     <facets>
         <dataLoadCoordinator auto="true"/>
         <urlQueryParameters>
-            <genericFilter component="genericFilter"/>
             <pagination component="pagination"/>
         </urlQueryParameters>
     </facets>
@@ -30,23 +25,20 @@
         <action id="discardAction" type="lookup_discard"/>
     </actions>
     <layout>
-        <genericFilter id="genericFilter"
-                       dataLoader="masterdataCargoPortsDl">
-            <properties include=".*"/>
-        </genericFilter>
+        <propertyFilter dataLoader="masterdataUnitsDl" operation="CONTAINS" property="name"
+                        label="Search" autoApply="true"/>
         <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button id="createBtn" action="masterdataCargoPortsDataGrid.create"/>
-            <button id="removeBtn" action="masterdataCargoPortsDataGrid.remove"/>
-            <button id="exportBtn" action="masterdataCargoPortsDataGrid.excelExport"/>
-            <simplePagination id="pagination" dataLoader="masterdataCargoPortsDl"/>
+            <button id="createBtn" action="masterdataUnitsDataGrid.create"/>
+            <button id="removeBtn" action="masterdataUnitsDataGrid.remove"/>
+            <button id="exportBtn" action="masterdataUnitsDataGrid.excelExport"/>
+            <simplePagination id="pagination" dataLoader="masterdataUnitsDl"/>
         </hbox>
-        <dataGrid id="masterdataCargoPortsDataGrid"
+        <dataGrid id="masterdataUnitsDataGrid"
                   width="100%"
                   minHeight="20em"
-                  dataContainer="masterdataCargoPortsDc"
+                  dataContainer="masterdataUnitsDc"
                   columnReorderingAllowed="true"
-                  selectionMode="MULTI"
-                  editorBuffered="true">
+                  selectionMode="MULTI" editorBuffered="true">
             <actions>
                 <action id="create" type="list_create"/>
                 <action id="edit" type="list_edit"/>
@@ -54,12 +46,9 @@
                 <action id="excelExport" type="grdexp_excelExport"/>
             </actions>
             <columns resizable="true">
-                <column property="portName" editable="true"/>
-                <column property="portCode"/>
-                <column property="portType" editable="true"/>
-                <column property="iataCode" editable="true"/>
-                <column property="country" editable="true"/>
-                <column property="city" editable="true"/>
+                <column property="name" editable="true"/>
+                <column property="abbreviation" editable="true"/>
+                <column property="category" editable="true" filterable="true"/>
                 <editorActionsColumn width="8em" flexGrow="0">
                     <editButton text="Edit" icon="PENCIL"/>
                     <saveButton icon="CHECK" themeNames="success"/>

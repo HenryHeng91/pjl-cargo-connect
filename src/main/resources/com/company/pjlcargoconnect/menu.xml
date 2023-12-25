@@ -1,12 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <menu-config xmlns="http://jmix.io/schema/flowui/menu">
 
-    <menu id="application" title="msg://com.company.pjlcargoconnect/menu.application.title" opened="true">
+    <menu opened="true" id="application" title="msg://com.company.pjlcargoconnect/menu.application.title">
         <item view="User.list" title="msg://com.company.pjlcargoconnect.view.user/UserListView.title"/>
-        <item view="MasterdataCargoPort.list"
-              title="msg://com.company.pjlcargoconnect.view.masterdatacargoport/masterdataCargoPortListView.title"/>
-        <item view="MasterdataCountry.list"
-              title="msg://com.company.pjlcargoconnect.view.masterdatacountry/masterdataCountryListView.title"/>
     </menu>
-
+    <separator/>
+    <menu opened="true" id="masterdata"
+          description="msg://com.company.pjlcargoconnect/menu_config.masterdata.description"
+          title="msg://com.company.pjlcargoconnect/menu_config.masterdata.title">
+        <item view="MasterdataCargoPort.list"
+              title="msg://com.company.pjlcargoconnect.view.masterdatacargoport/masterdataCargoPortListView.title"
+              icon="ANCHOR"/>
+        <item view="MasterdataCountry.list"
+              title="msg://com.company.pjlcargoconnect.view.masterdatacountry/masterdataCountryListView.title"
+              icon="GLOBE"/>
+        <item view="MasterdataCurrency.list"
+              title="msg://com.company.pjlcargoconnect.view.masterdatacurrency/masterdataCurrencyListView.title"
+              icon="DOLLAR"/>
+        <item view="MasterdataContainerSize.list"
+              title="msg://com.company.pjlcargoconnect.view.masterdatacontainersize/masterdataContainerSizeListView.title"
+              icon="CUBE"/>
+        <item view="MasterdataContainerType.list"
+              title="msg://com.company.pjlcargoconnect.view.masterdatacontainertype/masterdataContainerTypeListView.title"
+              icon="CUBES"/>
+        <item view="MasterdataModeOfTransport.list"
+              title="msg://com.company.pjlcargoconnect.view.masterdatamodeoftransport/masterdataModeOfTransportListView.title"
+              icon="TRUCK"/>
+        <item view="MasterdataProductCategory.list"
+              title="msg://com.company.pjlcargoconnect.view.masterdataproductcategory/masterdataProductCategoryListView.title"
+              icon="BOOKMARK_O"/>
+        <item view="MasterdataSupplierType.list"
+              title="msg://com.company.pjlcargoconnect.view.masterdatasuppliertype/masterdataSupplierTypeListView.title"
+              icon="USER_CARD"/>
+        <item view="MasterdataUnit.list"
+              title="msg://com.company.pjlcargoconnect.view.masterdataunit/masterdataUnitListView.title" icon="SCALE"/>
+    </menu>
 </menu-config>
